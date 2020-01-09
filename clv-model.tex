@@ -1,0 +1,185 @@
+\section{Retrieval Framework}
+Throughout this section we assume a fixed information need and a fixed document corpus $\corpus$. Suppose that the queries in a set 
+$\querySet=\set{\query_1,\ldots,\query_{\numQuery}}$ can represent --- to varying degrees of effectiveness
+--- the information need for retrieval. Our goal is to devise retrieval methods that
+utilize $\querySet$ to produce a single result list of $\numRet$ documents. 
+
+We assume some document retrieval
+method, $\retMethodDoc$, that will be used to produce initial rankings
+upon which cluster-based document retrieval methods will operate; this re-ranking mode is common practice in work on cluster-based document retrieval 
+\cite{Kurland+Lee:06a,Liu+Croft:06a,Liu+Croft:06b,Liu+Croft:08a,kurland:08a,Kurland+Krikon:11a,Raiber+Kurland:13a}. We also assume a document clustering algorithm and a cluster-based
+  document retrieval method, $\clustRetMethod$. The method can be used
+  to rank the documents in a set $\arbSet$ by utilizing
+  the set of clusters, $\cluster{\arbSet}$, created from
+  $\arbSet$. Several of the methods we present utilize some
+  fusion method \cite{Croft:00b}, $\retMethodFuse$, that merges document lists. 
+
+  Details of the document retrieval method, the clustering algorithm,
+  the cluster-based document retrieval method and the fusion method we
+  use for experiments are provided in Section \ref{sec:retAlg}. The
+  retrieval approaches we present are not committed to any of these
+  specific choices. However, we do make one assumption about the cluster-based
+  retrieval method: it uses a single query (which is standard
+  practice) and only for measuring similarities with documents or clusters. This assumption holds for the vast majority of cluster-based document
+  retrieval methods \cite{Kurland+Lee:04a,Liu+Croft:04a,Kurland+Lee:06a,Liu+Croft:06a,Liu+Croft:06b,Kurland+Domshlak:08a,Kurland:09a,Kurland+Krikon:11a,Raiber+Kurland:13a} including the
+  state-of-the-art approach \cite{Raiber+Kurland:13a}.
+  %This assumption
+  %actually also holds for many cluster-based document retrieval
+  %methods that use the query only to estimate cluster-query
+  %similarities. These similarities could be estimated based on the
+  %aggregate of query-similarity values of the cluster's constituent
+  %documents: Kurland and Krikon \cite{Kurland+Krikon:11a} showed that
+  %for the method of Liu and Croft \cite{Liu+Croft:08a}; Kozorovitzky
+  %and Kurland \cite{Kozorovitzky+Kurland:11b} demonstrated that for
+  %another method \cite{Kurland+Lee:04a,Kurland:09a}.
+
+
+We use $\retListParm{\query,\arbSet}{\retMethod;\numTop}$ to denote
+the list of the $\numTop$ most highly ranked documents by retrieval
+method $\retMethod$ when applied in response to query $\query$ over
+the document set $\arbSet$. $\simFn{x}{y}$ is a
+similarity estimate for two texts $x$ and $y$; Section 
+\ref{sec:retAlg} provides details of the estimate.
+
+
+\subsection{Retrieval Templates}
+We next present five {\em retrieval templates}. These represent
+different adaptations of a cluster-based retrieval method designed to
+work with a single query to a setting where multiple queries, $\querySet$, are available. We call these ``templates'' as they can be instantiated in various ways to yield specific retrieval methods; specifically, by selecting a document retrieval method, a clustering algorithm, a cluster-based retrieval method and a document fusion method.
+
+
+\myparagraph{\queryCatNoR} Inspired by work on relevance modeling and
+query expansion using multiple query variations \cite{Lu+al:19a}, the \firstmention{\queryCat} method first concatenates all the queries in
+$\querySet$ to yield a single query $\conQuery$. The order of concatenation has no effect since all retrieval models we apply use bag-of-terms representations.
+
+We then apply standard document retrieval over the corpus in response
+to $\conQuery$; the list of $\numRet$ most highly ranked documents is:
+$\initRetList \definedas \retListParm{\conQuery,\corpus}{\retMethodDoc,\numRet}$. We 
+re-rank this list using the cluster-based approach applied with $\conQuery$ to yield the final
+result list: $\retList_{\queryCat} \definedas \retListParm{\conQuery,\initRetList}{\clustRetMethod;\numRet}$.
+
+In comparison to cluster-based document retrieval in the standard
+setting of using a single query, \queryCat leverages the
+multiple queries in two ways: (i) to produce a potentially improved initial
+document ranking --- to be re-ranked by the cluster-based approach --- by the virtue of using a richer information need representation ($\conQuery$), and (ii) to apply the cluster-based retrieval method with this improved representation. 
+
+\myparagraph{\fuseClustNoR} The \firstmention{\fuseClust} method employs
+a different approach than \queryCat to improve the initial ranking upon which cluster-based re-ranking is applied. That is, rather than integrating evidence
+about the information need at the query level, the evidence is integrated at the retrieved list level. Specifically, multiple initial lists,
+each retrieved for a query in $\querySet$, are fused. The resultant list should be highly effective with respect to the lists that are fused \cite{Belkin+al:95a,bailey2016uqv100,bailey2017retrieval,bc17-adcs};  hence, it should serve as an effective basis for cluster-based re-ranking.
+
+
+More formally, retrieval is performed for each query $\query_i$ ($\in
+\querySet$) using the document-based method $\retMethodDoc$ to produce
+the list $\retList_i \definedas
+\retListParm{\query_i,\corpus}{\retMethodDoc;\numRet}$. The lists
+$\set{\retList_i}$ are then fused to one list, and the top-$\numRet$
+documents serve as the list $\retList_{fuse}$.  The next step is to
+apply the cluster-based method upon $\retList_{fuse}$ to yield the
+final result list. We replace the document-query similarity estimates used by the cluster-based retrieval method with the documents' fusion scores. The latter are presumably better document relevance estimates than those based on the similarity of a document to a single query\footnote{In case the cluster-based method also utilizes cluster-query similarities, we can replace each of these estimates with an aggregate (e.g., arithmetic or geometric means) of the fusion scores of the cluster's constituent documents.}.
+
+
+%Obviously, the question is which query is used by
+%the cluster-based method in this case. Intuitively, we opt for a
+%``pseudo query'' which corresponds to the list
+%$\retList_{fuse}$. Rather than devising an explicit query, we take the
+%following approach. Many cluster-based retrieval methods, including
+%the state-of-the-art and those we use for experiments, utilize the
+%query only for assigning retrieval scores to documents within the
+%clusters. Hence, we simply replace these retrieval scores with the
+%fusion score assigned to the documents; these fusion scores served to
+%induce the list $\retList_{fuse}$, and are presumably better estimates
+%for document relevance --- by the virute of the merits of document
+%fusion --- than retrieval scores assigned based on a single query.
+
+\myparagraph{\clustFuseNoR} The \firstmention{\clustFuseNoR} method,
+as \fuseClust, utilizes fusion of document lists. The difference is
+that the cluster-based re-ranking is applied before the
+fusion. More specifically, as in \fuseClust, we use the document-based method $\retMethodDoc$ with each query $\query_i$ to produce
+the list: $\retList_i \definedas \retListParm{\query_i,\corpus}{\retMethodDoc;\numRet}$. We then use the cluster-based method to re-rank each of the lists $\retList_i$, and we fuse the re-ranked lists.
+The underlying assumption is that each re-ranked list will be of higher effectiveness than the initial list, and fusion of the re-ranked lists will further improve performance.
+
+\myparagraph{\poolClustNoR} The \firstmention{\poolClustNoR} method is
+inspired by a previously proposed cluster-based approach to fusion of
+retrieved document lists \cite{Kozorovitzky+Kurland:11b}. We apply the
+document-based method $\retMethodDoc$ in response to each query
+$\query_i$ to yield $\retList_i \definedas
+\retListParm{\query_i,\corpus}{\retMethodDoc;\numRet}$. We then form a
+set of documents, $\arbSet$, from all those that appear at the
+top-$\arbParam$ ranks of at least one of the lists $\retList_i$;
+$\arbParam$ is set to the minimal value such that $\arbSet$ includes
+at least $\numRet$ documents. We then apply the cluster-based method upon $\arbSet$; in doing so, each document ($\doc$) - query ($\query$) similarity estimate, $\simFn{\query}{\doc}$, is replaced with $\frac{1}{\vert \querySet \vert} \sum_{\query_i \in \querySet} \simFn{\query}{\doc}$ and each cluster ($\clust$) - query ($\query$) similarity estimate $\simFn{\query}{\clust}$, is replaced with $\frac{1}{\vert \querySet \vert} \sum_{\query_i \in \querySet} \simFn{\query}{\clust}$.
+
+\myparagraph{\featureNoR}
+The \firstmention{\featureNoR} method applies the same principle applied by the \poolClust method: document-query and cluster-query similarity estimates in the cluster-based method are replaced with the arithmetic means, over the queries in $\querySet$, of the corresponding estimates. The difference with the \poolClust method is the set of documents upon which the cluster-based method is applied: {\em some} query $\query$ from $\querySet$ is selected, retrieval is performed over the corpus with respect to this query using the document-based method, and the resultant list, $\retList \definedas \retListParm{\query,\corpus}{\retMethodDoc;\numRet}$ is re-ranked using the cluster-based method. The goal of studying this method is to evaluate the merit of re-ranking a single retrieved list using the cluster-based retrieval method where query-similarity estimates are based on the set of queries rather than on a single query as is standard.
+
+\subsection{Retrieval Methods}
+\label{sec:retAlg}
+The retrieval templates described above can be instantiated in various
+ways by selecting the document-based retrieval method, the clustering
+algorithm, the cluster-based retrieval method and the fusion
+method. We next describe the instantiations we experimented with.
+
+
+All the methods we present operate in the language modeling framework
+as was the case in a big body of work on cluster-based document
+retrieval
+\cite{Kurland+Lee:04a,Liu+Croft:04a,Kurland+Lee:06a,Liu+Croft:06a,Liu+Croft:06b,Kurland+Domshlak:08a,Kurland:09a,Kurland+Krikon:11a,Raiber+Kurland:13a}. Let
+$\theta_x^{Dir; \dirParam}$ denote the Dirichlet smoothed unigram
+language model induced from text $x$ using the smoothing parameter
+$\dirParam$ \cite{Zhai+Lafferty:01a}. The inter text similarity measure is defined as:
+$\simFn{x}{y} \definedas \exp
+(-\ceSmall{\theta_x^{Dir;0}}{\theta_y^{Dir;\dirParam}})$; $\crossEnt$ is the cross
+entropy measure; $\theta_x^{Dir;0}$ is the unsmoothed maximum
+likelihood estimate induced from $x$.
+
+
+\myparagraph{Document-based retrieval method}
+We use standard language-model-based retrieval \cite{Lafferty+Zhai:01a} for the document-based retrieval method $\retMethodDoc$. Specifically, the retrieval score of document $\doc$ with respect to query $\query$ is $\simFn{\query}{\doc}$. Note that this retrieval method is rank equivalent to the query likelihood model \cite{Song+Croft:99a}.
+
+\myparagraph{Clustering algorithm} The merits of using small
+(overlapping) nearest-neighbor clusters for cluster-based document
+retrieval have long been demonstrated
+\cite{Kurland+Lee:04a,Kurland+Lee:06a,Liu+Croft:06a,Liu+Croft:06b,Kurland:09a,Raiber+Kurland:13a}. To
+create the set of clusters $\cluster{\arbSet}$ from a document set
+$\arbSet$, we define a cluster based on each document $\doc$ in
+$\arbSet$ as follows. We declare $\doc$ and the $\clustSize-1$ documents $\doc'$ in $\arbSet$ ($\doc' \ne \doc$) that yield the highest $\simFn{\doc}{\doc'}$ to be a cluster. 
+
+\myparagraph{Cluster-based retrieval method} We use three different
+cluster-based retrieval methods to instantiate the retrieval
+templates. To use each of the three methods in the \fuseClust template, the document-query similarity estimate is replaced with the document's fusion score as described above. To use the methods in the \poolClust and \feature templates, the document-query similarity estimate, $\simFn{\query}{\doc}$, is replaced with $\frac{1}{\vert \querySet \vert} \sum_{\query_i \in \querySet} \simFn{\query}{\doc}$ as described above. 
+
+The first cluster-based retrieval method is the state-of-the-art \clustMRF method
+\cite{Raiber+Kurland:13a}. \clustMRF was the best performing document retrieval method in
+the Web track of TREC 2013 \cite{Thompson+al:13a}. It is based on supervised ranking of the clusters. The cluster ranking is transformed to document ranking by replacing each cluster with its constituent documents while omitting repeats. The order of documents within a cluster is determined based on their query similarity. \clustMRF uses three groups of features to rank clusters which are based on (i) query-similarity estimates of documents in clusters, (ii) inter-document similarities in a cluster, and (iii) query-independent relevance measures of documents in a cluster (e.g., entropy of the term distribution of a document, its inverse compression ratio, and stopwords-based features).
+
+%Thus, to use \clustMRF in the \fuseClust, \poolClust and \feature templates, the document-query similarity estimate, $\simFn{\query}{\doc}$, is simply replaced with $\frac{1}{\vert \querySet \vert} \sum_{\query_i \in \querySet} \simFn{\query}{\doc}$ as described above. 
+
+The second cluster-based retrieval method, \geoClust \cite{Kurland+Krikon:11a}, is also based on ranking clusters and transforming the cluster ranking to document ranking as in \clustMRF \cite{Raiber+Kurland:13a}. Clusters are simply ranked by the geometric mean of the query similarities of their constituent documents. In fact, \geoClust is used as a feature in \clustMRF. The use of the geometric mean was also shown to be of merit at the language model level \cite{Seo+Croft:10a}, specifically for ranking document clusters \cite{Liu+Croft:08a}.
+
+%To use \geoClust in the \fuseClust, \poolClust and \feature templates, the estimates for document-query similarities should be replaced as in \clustMRF.
+
+The third cluster-based retrieval method,
+\interp~\cite{Kurland:09a,Kozorovitzky+Kurland:11b}\footnote{We use the highly effective general version of \interp which can work with any document-query similarity estimate and which was used for cluster-based fusion of document lists \cite{Kozorovitzky+Kurland:11b}.}, is based on
+directly ranking document using cluster-based
+information. Specifically, to rank a document set $\arbSet$ with respect to query $\query$, the
+retrieval score of document $\doc$ ($\in \arbSet$) is:
+\begin{align}
+  \label{eq:interpf}
+(1-\lambda)
+&\frac{\simFn{\query}{\doc}}{\sum_{\doc' \in \arbSet}
+  \simFn{\query}{\doc'}} + \\
+& \lambda \sum_{\clust \in \cluster{\arbSet}}
+\frac{\prod_{\doc' \in \clust} \simFn{\query}{\doc'}}{\sum_{\clust' \in \cluster{\arbSet}} \prod_{\doc'' \in \clust'} \simFn{\query}{\doc''}}  \frac{\sum_{\doc' \in \clust} \simFn{\doc'}{\doc}}{\sum_{\doc'' \in \arbSet}\sum_{\doc' \in \clust} \simFn{\doc'}{\doc''}};
+\end{align}
+$\lambda$ is a free parameter.
+\interp rewards document $\doc$ if its query similarity is high and/or it is highly similar to documents in clusters whose constituent documents are highly similar to the query.
+
+
+
+\myparagraph{Fusion method} We use the reciprocal-rank fusion method
+\cite{Cormack+al:09a} to fuse document lists
+$\retList_i$. Specifically, if document $\doc$ is a member of at least
+one of the lists, its fusion score is: $\sum_{\retList_i} \frac{1}{\alpha + \rankInList{\doc}{\retList_i}}$, where
+  $\rankInList{\doc}{\retList_i}$ is $\doc$'s rank in $\retList_i$ (the rank of the highest ranked document is $1$) and
+  $\alpha$ is a free parameter. This fusion method is highly effective in general \cite{Anava+al:16a}, and was shown to be highly effective for fusing document lists retrieved in response to query variations representing the same information need \cite{bailey2017retrieval,bc17-adcs}.

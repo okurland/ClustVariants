@@ -1,0 +1,203 @@
+\section{Related Work}
+\label{sec-relwork}
+%%-OKc3:
+The two lines of work most related to ours are relevance modeling and
+fusion over query variations.
+
+\subsection{Relevance Modeling}
+Relevance modeling approaches, and more generally,
+pseudo-feedback-based query-model induction techniques, that were
+proposed in past work operate in the standard single-query retrieval setting; e.g.,
+~\cite{Lavrenko+al:02a,Liu+Croft:02a,Lavrenko+Croft:03a,Abdul-Jaleel+al:04a,Wei+Croft:06a,Metzler+Croft:07b,Bendersky+Kurland:08a,Lv+Zhai:10a}.
+In contrast, our task is relevance modeling using multiple queries
+that represent the same information need.
+The methods we introduce are not committed to a specific query-model
+induction technique.
+
+
+\myparagraph{Using Multiple Query Models}
+Some of our methods utilize multiple relevance models induced from
+different query variations.
+Hence, we next survey work on utilizing multiple query models.
+
+A Dirichlet distribution was fitted using pseudo-feedback-based query
+models induced from query variants and samples of top-retrieved
+documents \cite{Collins-Thompson+Callan:07a}.
+The distribution's mean and mode served as the query model.
+We use this approach as a baseline.
+
+Relevance models induced from external collections using a single
+query were linearly mixed \cite{Diaz+Metzler:06a,bmc12-wsdm}.
+One of our methods also linearly mixes relevance models, but these
+are induced over a single corpus using multiple query variations.
+Additional difference is that we formally derive the method from an
+extension of the generative relevance assumption to the case of
+multiple queries representing an information need; and, we draw
+formal connections with other methods
+%that
+we use for
+%utilizing
+relevance modeling with multiple query variations.
+
+The generative theory for relevance was extended by assuming that
+there exist multiple relevance models that generate terms in the
+query and in relevant documents~\cite{Soskin+al:09a}.
+In contrast, our proposed extension is based on the assumption of a
+single relevance model
+generating terms in different queries used
+to represent the information need, and in relevant documents.
+Retrieval scores assigned to a document with respect to multiple
+relevance (query) models can be combined using data fusion \cite{Soskin+al:09a,Xue+Croft:13a}.
+We formally demonstrate the connection between this fusion-based
+approach when applied using query variations and other methods which
+fuse relevance models at the query model level.
+As an alternative to fusing relevance models, a single relevance
+model was selected from those created using samples of top-retrieved
+documents~\cite{Winaver+al:07a}.
+
+
+\citet{Rabinovich+al:14a} induce a relevance model from {\em
+relevant} documents most highly ranked in a document list fused from
+those retrieved by different retrieval {\em systems} for the same
+query.
+One of the methods we study is similar in that it utilizes a
+relevance model induced from a fused list.
+However, we use no relevance feedback, and the lists that are fused
+are retrieved using the same retrieval approach but for different
+query variations.
+Additional important difference is that we formally connect the
+proposed approach with methods which utilize query models induced
+from query variations.
+
+To improve performance robustness, an initially retrieved document
+list, and a document list retrieved using a relevance model induced
+from the initial list, were fused \cite{Zighelnic+Kurland:08a}.
+In contrast to our approach, multiple queries were not used, the
+generative theory to relevance was not extended and average
+performance was not improved.
+
+
+\subsection{Fusion With Query Variations}
+The work of {\citet{bccc93-sigir,belkin1995combining}} is among the
+earliest to explore the notion of fusing multiple query variations to
+produce a single ranked retrieval list.
+There is recent work on probabilistic fusion of lists retrieved for
+query variations \cite{Rabiou+Carterette:16a}.
+In contrast to our work, relevance modeling was not addressed.
+{\citet{bailey2017retrieval}} recently proposed a new rank-based
+fusion method called Rank Biased Centroids (\method{RBC}) and showed
+that fusing query variations~{\cite{bailey2016uqv100}} in the
+ClueWeb12B corpus was highly effective.
+{\citet{bc17-adcs}} extended the work of \citet{bailey2017retrieval}
+to the TREC Robust 2004 collection, and showed that reciprocal rank
+fusion \cite{cormack2009reciprocal} (\method{RRF}), and
+{\method{CombSUM}} \cite{fox1994combination}
+combined with double fusion (fusion over multiple query variants and
+systems) can also produce highly effective results -- matching the
+best ever reported for that collection.
+We use {\method{RRF}} and {\method{CombSUM}} as baselines, and
+incorporate then directly into our newly proposed methods due to
+their simplicity and performance characteristics.
+
+
+\endinput
+
+
+\subsection{Rank Fusion}
+We now turn our attention to rank fusion as our approach conceptually
+captures ideas from both relevance modeling and fusion.
+There is a long history of fusing result lists from multiple ranking
+models.
+Rank fusion algorithms can broadly be classified into two
+categories~{\citep{frank2005comparing}} -- score-based rank fusion
+and rank-based fusion.
+The earliest algorithms such as \method{CombSUM} and \method{CombMNZ}
+are score-based~\cite{fox1994combination}.
+\method{CombSUM} can be calculated as:
+
+\begin{equation}
+  \label{eq:combsum}
+  \mbox{\method{CombSUM}} (\doc) \definedas \sum_{L_i: d \in L_i}\var{Score}(\doc;L_i),
+\end{equation}
+where $\set{L_i}$ are the result lists and $\var{Score}(\doc;L_i)$ is $\doc$'s score in $L_i$.
+
+
+In contrast, rank-based rank fusion algorithms simply rely on the
+order of documents in each
+%%-OKc:
+%observed
+result list.
+The simplest rank-based approach is based on Borda counting
+~{\cite{borda1784memoire}.
+{\citet{cormack2009reciprocal}} found that fusion by summing and
+sorting the reciprocal rank, for a document over each list,
+outperforms Condorcet fusion in effectiveness; naming the method
+Reciprocal Rank Fusion (\method{RRF}):
+%%-OKc:
+%\begin{equation} \label{eq:rrf}
+%    \var{RRF}_s(d, D, k) = \sum_{d \in D}{} \frac{1}{k + r(d)}
+%\end{equation}
+\begin{equation} \label{eq:rrf}
+    \mbox{\method{RRF}}(\doc;k) = \sum_{L_i:d \in L_i}{} \frac{1}{k + r(\doc,L_i)};
+\end{equation}
+%%-OKc3:
+%Equation \ref{eq:rrf} describes the scoring formula,
+%%-OKc3: we say that in the experimental setting section
+%where $k = 60$
+%where $
+$k$ is a free parameter 
+%is a constant known to produce effective results under the test
+%collections evaluated against,
+and $r(\doc,L_i)$ is $\doc$'s rank position in $L_i$.
+%represents the rank position of the
+%document.
+%%-OK,19:
+This
+%unsupervised
+fusion method was recently reported to be the state-of-the-art unsupervised fusion method \cite{Anava+al:16a}, 
+and a strong baseline
+%in recent work
+against supervised rank-fusion methods~{\citep{lee2015optimization}}.
+%\method{RRF} was extended by \citet{mourao2014inverse} to increase
+%the growth rate of the denominator in the reciprocal rank summation
+%to behave quadratically, and named the Inverse Square Rank
+%(\method{ISR}) and \method{logISR}.
+%While the methods performed well in case-based retrieval tasks,
+%they tend to be less effective in web-based document collections.
+%We therefore, do not explore them further in this work.
+
+
+%\cite{Anava+al:16a,Rabiou+Carterette:16a}. Lists retrieved for different queries 
+
+
+%\myparagraph{Fusion with Query Variations}
+
+The work of {\citet{bccc93-sigir,belkin1995combining}} is among the
+earliest to explore the notion of fusing multiple query variations to
+produce a single ranked retrieval list.
+There is recent work on probabilistic fusion of lists retrieved for
+query variations \cite{Rabiou+Carterette:16a}.
+In contrast to our work, relevance modeling was not addressed.
+{\citet{bailey2017retrieval}} recently proposed a new rank-based
+fusion method called Rank Biased Centroids (\method{RBC}) 
+and showed that fusing query variations~{\cite{bailey2016uqv100}} in
+the ClueWeb12B corpus was highly effective.
+{\citet{bc17-adcs}} extended the work of \citet{bailey2017retrieval}
+to the TREC Robust 2004 collection, and showed that {\method{RRF}}
+and {\method{CombSUM}} combined with double fusion (fusion over
+multiple query variants and systems) can also produce highly
+effective results -- matching the best ever reported for that
+collection.
+We use {\method{RRF}} and {\method{CombSUM}} as baselines, and
+incorporate then directly into our newly proposed methods due to
+their simplicity and performance characteristics.
+
+%Finally, we note that recent
+%work~{\cite{sssc11wsdm,lee2015optimization}} has shown that combining
+%fusion, query variations, and learning-to-rank can also result in
+%remarkable effectiveness gains.
+%However, these systems require additional training data and feature
+%engineering to achieve these improvements.
+%This problem is orthogonal to ours, and we certainly hope to extend
+%our current work in this direction in the near future.
+

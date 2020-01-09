@@ -1,0 +1,64 @@
+\section{Introduction}\label{sec-intro}
+
+One of the most fundamental and theoretically sound approaches for
+inducing a rich information-need representation in the ad hoc
+retrieval task is based on the generative theory of
+relevance~\cite{Lavrenko+Croft:03a}.
+Specifically, by the generative assumption for relevance, there
+exists a relevance language model that generates terms in the query
+and in documents relevant to the query, or more precisely, to the
+information need it represents.
+Relevance models can be estimated using several common techniques
+\cite{Lavrenko+Croft:03a,Abdul-Jaleel+al:04a,Lv+Zhai:10a,Seo+Croft:10a}.
+The basic approaches can also be extended and improved by combining
+multiple information sources; e.g., external corpora
+\cite{Diaz+Metzler:06a}, query logs \cite{bmc12-wsdm} and entity
+repositories \cite{dda14-sigir}.
+
+None of these prior approaches considers how to directly extend a
+relevance model when multiple query variations {\em for the same
+information need} are available.
+Query variants can easily be gathered through query reformulations
+from a user in a single search session, across multiple search
+sessions, through query log analysis~{\cite{wnz01-www,sssc11wsdm}},
+or through combinations of all of the above.
+
+In this work, we extend the generative assumption of relevance by
+assuming that a single language model can generate terms in multiple
+queries representing a single information need, and explore the
+theoretical and practical implications of this novel extension.
+Our extended assumption leads to the formal development of several
+new relevance-model estimation methods.
+
+An important aspect of our proposed approaches is {\em data fusion}.
+More specifically, our new relevance models can be recast to fusion
+at the term level, query-model level (language-model-level), or the
+document level.
+We formally demonstrate equivalences between several of these methods
+despite appearing quite different at first glance.
+For example, some of the estimation methods that fuse query models
+are equivalent, given some mild assumptions, to a method that
+performs fusion at the document level.
+These equivalences motivate entirely new relevance-model estimation
+approaches that utilize query-model level techniques originally
+proposed for fusing document lists, and which have been shown to be
+highly effective.
+
+\myparagraph{Contributions}
+%
+\noindent Our contributions can be summarized as follows: 
+(1) We explore a novel task: relevance modeling using multiple query
+variations representing the same information need.
+(2) We extend the generative assumption for relevance, and use it as
+a basis to formally derive relevance-model-estimation methods.
+%document level.
+(3) We formally demonstrate theoretical connections and equivalences
+between several of our methods.
+(4) We empirically validate the performance of our proposed
+approaches using three different TREC datasets.
+We show that models derived from multiple queries are superior to
+using a single-query-based model in every case, and demonstrate that a wide
+variety of different model combinations exhibit similar performance
+characteristics -- providing empirical evidence that our
+theoretically derived equivalences also hold in practice.
+

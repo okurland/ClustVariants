@@ -1,0 +1,113 @@
+%%% general editing
+
+%%% squeeze equations
+%\setlength{\abovedisplayskip}{2pt}
+%\setlength{\belowdisplayskip}{2pt}
+%\setlength{\abovedisplayshortskip}{2pt}
+%\setlength{\belowdisplayshortskip}{2pt} 
+
+%\newcommand{\comment}[1]{{\bf {\small !!--#1--!!}}}
+\newcommand{\point}[1]{$\rhd$ {\it #1}} %for remarking on points to be 
+					%made in the text; to distinguish
+					%from actual text (which has
+					%to be grammatical, for
+					%instance)
+\newcommand{\save}[1]{{\sf #1}} %for saving text that should be used 
+				%somewhere but isn't right yet
+\newcommand{\omt}[1]{}
+\newcommand{\firstmention}[1]{{\em #1}}
+\newcommand{\myparagraph}[1]{\vspace{0.3\baselineskip}\noindent{\textbf{#1}}.~}
+
+
+
+
+%%% basic IR 
+\newcommand{\query}{q}
+\newcommand{\pQuery}{q^{pseudo}}
+\newcommand{\conQuery}{q^{con}}
+\newcommand{\numQuery}{m}
+\newcommand{\numTop}{k}
+\newcommand{\numRet}{n}
+\newcommand{\numVariants}{v}
+\newcommand{\querySet}{{\mathcal Q}}
+\newcommand{\doc}{d}
+\newcommand{\corpus}{{\mathcal D}}
+\newcommand{\queryVar}[1]{\query_{#1}}
+\newcommand{\retList}{L}
+\newcommand{\initTag}{init}
+\newcommand{\finalTag}{final}
+\newcommand{\finalList}{\retList_{\finalTag}}
+\newcommand{\initRetList}{\retList_{\initTag}}
+\newcommand{\cluster}[1]{Cl(#1)}
+\newcommand{\clust}{c}
+\newcommand{\clustSize}{k}
+\newcommand{\retMethodDoc}{{\mathcal M_{doc}}}
+\newcommand{\retMethodFuse}{{\mathcal M_{fuse}}}
+\newcommand{\retMethod}{{\mathcal M}}
+\newcommand{\clustRetMethod}{\mathcal M_{clust}}
+\newcommand{\retListParm}[2]{\retList_{#1}^{[#2]}}
+\newcommand{\freq}[2]{{\rm tf}(#1 \in #2)}
+\newcommand{\arbSet}{S}
+\newcommand{\arbParam}{\nu}
+\newcommand{\arbTerm}{w}
+\newcommand{\scoreSymbol}{S}
+\newcommand{\scoreFn}[1]{\scoreSymbol(#1)}
+\newcommand{\scoreFnParam}[2]{\scoreSymbol_{#2}(#1)}
+%\newcommand{\tf}[2]{tf(#1 \in #2)}
+%%% probability notation
+\newcommand{\prob}{p}
+\newcommand{\dirichletParam}{\mu}
+\newcommand{\estprob}{\hat{\prob}}
+\newcommand{\condP}[2]{\prob(#1|#2)}
+\newcommand{\estcondP}[2]{\hat{\prob}({#1}\vert{#2})}
+
+
+%%% language models
+\newcommand{\arbLM}{\theta}
+\newcommand{\mle}{MLE}
+\newcommand{\ql}{QL\xspace}
+\newcommand{\genProb}[2]{\condP{#1}{#2}}
+\newcommand{\genProbPar}[3]{p^{#3}({#1}|{#2})}
+\newcommand{\mleProb}[2]{\genProbPar{#1}{#2}{\svar{\mle}}}
+\newcommand{\mleProbClip}[2]{\genProbPar{#1}{#2}{\mle,clip}}
+\newcommand{\dirProb}[2]{\genProbPar{#1}{#2}{\svar{Dir}}}
+\newcommand{\dirParam}{\mu}
+\newcommand{\arbModel}{M}
+\newcommand{\arbLMone}{M_1}
+\newcommand{\arbLMtwo}{M_2}
+\newcommand{\numClip}{\beta}
+\newcommand{\modelClip}[1]{{#1}^{\svar{clip}}}
+
+
+%%% general math
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\definedas}{\stackrel{def}{=}}
+\newcommand{\kron}[1]{\delta\hspace{-0.2111em}\left[#1\right]}
+\newcommand{\kld}[2]{KL\left(#1 \; \Big\vert\Big\vert \,\, #2\right)}
+\newcommand{\jdiv}[2]{J\left(#1 \; \Big\vert\Big\vert \,\, #2\right)}
+\newcommand{\kldSmall}[2]{D\left(#1 \; \vert\vert \,\, #2\right)}
+\newcommand{\jdivSmall}[2]{J\left(#1 \; \vert\vert \,\, #2\right)}
+\newcommand{\entropy}{H}
+\newcommand{\ceSmall}[2]{\crossEnt\left(#1 \; \vert\vert \,\, #2\right)}
+\newcommand{\crossEnt}{CE}
+\newcommand{\simFn}[2]{Sim(#1,#2)}
+
+%%% queries stuff and methods' names 
+\newcommand\method[1]{{\sf\small{#1}}}
+\newcommand{\queryCat}{\method{QueryConcat}\xspace}
+\newcommand{\fuseClust}{\method{FuseClust}\xspace}
+\newcommand{\clustFuse}{\method{ClustFuse}\xspace}
+\newcommand{\poolClust}{\method{PoolClust}\xspace}
+\newcommand{\feature}{\method{SimClust}\xspace}
+\newcommand{\fuseClustNoR}{{FuseClust}\xspace}
+\newcommand{\clustFuseNoR}{{ClustFuse}\xspace}
+\newcommand{\poolClustNoR}{{PoolClust}\xspace}
+\newcommand{\featureNoR}{{SimClust}\xspace}
+\newcommand{\queryCatNoR}{{QueryConcat}\xspace}
+
+
+\newcommand{\rankInList}[2]{rank(#1;#2)}
+\newcommand{\clustMRF}{\method{ClustMRF}\xspace}
+\newcommand{\geoClust}{\method{GeoClust}\xspace}
+\newcommand{\interp}{\method{Interp-f}\xspace}
+

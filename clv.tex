@@ -1,0 +1,84 @@
+\documentclass[sigconf,natbib=true,anonymous=true]{acmart}
+\usepackage[normalem]{ulem}
+\usepackage{url}
+\usepackage{xcolor} 
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage[mathscr]{eucal}
+\usepackage{graphicx}
+\usepackage{makecell}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage[font=rm]{caption}
+\usepackage{subcaption}
+\DeclareCaptionType{copyrightbox}
+\usepackage{shortvrb}
+\usepackage{tabularx}
+\usepackage{threeparttable}
+\usepackage{verbatim}
+\usepackage{xspace}
+\usepackage{listings}
+\lstset{basicstyle=\small\ttfamily,mathescape,columns=fullflexible,keepspaces=true}
+
+\usepackage[multiple]{footmisc}
+
+\usepackage[moderate, leading=normal]{savetrees}
+
+\usepackage[all]{nowidow}
+\usepackage{balance}
+
+\renewcommand{\cite}{\citep}
+
+
+\newcommand{\oren}[1]{\textrm{\textcolor{green}{Oren: #1}}}
+\newcommand{\fiana}[1]{\textrm{\textcolor{yellow}{Fiana: #1}}}
+\newcommand{\shane}[1]{\textrm{\textcolor{red}{Shane: #1}}}
+\newcommand{\kfir}[1]{\textrm{\textcolor{blue}{Kfir: #1}}}
+  
+
+%\settopmatter{printacmref=false} % Removes citation information below abstract
+
+
+\input{clv-macros}
+
+
+
+\acmConference[Conference]{Conference}{Date}{Place}
+\settopmatter{printacmref=true, printfolios=false}
+\fancyhead{}
+
+%\settopmatter{authorsperrow=5}
+
+%Conference
+%\copyrightyear{2018}
+%\acmYear{2018}
+%\setcopyright{acmlicensed}
+%\acmConference[CIKM'18]{CIKM conference}{October 2018}{Lingotto, Turin, Italy}
+
+%\clubpenalty=10000
+%\widowpenalty = 10000
+
+\title{Cluster-Based Document Retrieval with Multiple Query Variations}
+
+\begin{document}
+\input{clv-abstract}
+\maketitle
+\input{clv-intro}
+\input{clv-rel}
+\input{clv-model}
+\input{clv-eval.tex}
+\input{clv-conc.tex}
+
+\newpage
+\balance
+\bibliographystyle{acm-reference-fmt}
+%%-OK: added a local bib file; should merge
+\bibliography{cunlp-ir}
+
+
+\end{document}
+
