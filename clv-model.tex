@@ -168,9 +168,9 @@ retrieval score of document $\doc$ ($\in \arbSet$) is:
   \label{eq:interpf}
 (1-\lambda)
 &\frac{\simFn{\query}{\doc}}{\sum_{\doc' \in \arbSet}
-  \simFn{\query}{\doc'}} + \\
+  \simFn{\query}{\doc'}} +  \\
 & \lambda \sum_{\clust \in \cluster{\arbSet}}
-\frac{\prod_{\doc' \in \clust} \simFn{\query}{\doc'}}{\sum_{\clust' \in \cluster{\arbSet}} \prod_{\doc'' \in \clust'} \simFn{\query}{\doc''}}  \frac{\sum_{\doc' \in \clust} \simFn{\doc'}{\doc}}{\sum_{\doc'' \in \arbSet}\sum_{\doc' \in \clust} \simFn{\doc'}{\doc''}};
+\frac{\prod_{\doc' \in \clust} \simFn{\query}{\doc'}}{\sum_{\clust' \in \cluster{\arbSet}} \prod_{\doc'' \in \clust'} \simFn{\query}{\doc''}}  \frac{\sum_{\doc' \in \clust} \simFn{\doc'}{\doc}}{\sum_{\doc'' \in \arbSet}\sum_{\doc' \in \clust} \simFn{\doc'}{\doc''}}; \notag
 \end{align}
 $\lambda$ is a free parameter.
 \interp rewards document $\doc$ if its query similarity is high and/or it is highly similar to documents in clusters whose constituent documents are highly similar to the query.
