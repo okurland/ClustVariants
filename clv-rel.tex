@@ -1,2 +1,41 @@
 \section{Related Work}
 \label{sec:rel}
+The merits of applying fusion to document lists retrieved for queries
+representing the same information need have long been demonstrated
+\cite{Belkin+al:93a,Belkin+al:95a,Pickens+al:08a,bailey2017retrieval,bc17-adcs,Benham+al:19a}. One
+of the retrieval templates we propose uses cluster-based retrieval to
+re-rank a list fused from those retrieved for the queries at hand. We
+also present the merits of applying fusion after each of the lists
+retrieved for the queries was re-ranked using cluster-based
+retrieval. Benham and Culpepper \cite{bc17-adcs} showed that
+reciprocal rank fusion \cite{Cormack+al:09a} yields state-of-the-art
+performance in fusing document lists retrieved for multiple queries representing the same information need . Our best
+performing methods substantially outperform this fusion approach.
+
+Recent work on query performance prediction showed that the relative
+prediction quality posted by prediction methods can significantly vary
+when varying the effectiveness of a query used to represent an
+information need \cite{Zendel+al:19a}. In a conceptually similar vein, we show that state-of-the-art
+cluster-based document retrieval methods can actually be underperformed by
+simple standard document retrieval if highly effective queries are used to
+represent information needs.
+
+To address search efficiency when using multiple queries, Benham et
+al. \cite{Benham+al:19a} clustered queries offline. At query time, the
+results retrieved for a (single) query at hand were fused with those
+for the centroid of the cluster with which the query was
+associated. Our work focuses on using document clusters
+at query time in contrast to utilizing (offline) query clusters.
+
+There was some work on cluster-based fusion of retrieved lists
+\cite{Kozorovitzky+Kurland:11b}. Documents in lists retrieved by applying different
+retrieval approaches for a {\em single query} were
+clustered. Then, a cluster-based retrieval approach was applied using
+these clusters to perform the fusion. This fusion approach is easily derived as a specific instantiation of one of the retrieval templates we present for retrieval using {\em multiple queries}. While the resultant performance is effective, we present approaches which are substantially more effective in our setting.
+
+
+
+
+
+
+
