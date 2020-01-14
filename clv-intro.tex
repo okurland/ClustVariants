@@ -2,105 +2,165 @@
 \label{sec:intro}
 
 The cluster hypothesis for ad hoc retrieval is: ``{\em closely
-associated documents tend to be relevant to the same requests}''
-\cite{Jardine+Rijsbergen:71a}. The operational interpretation of the
-hypothesis is that relevant documents are more similar to each
-other than to non-relevant documents. A few tests were designed
-and applied to study the extent to which the
-hypothesis holds \cite{Jardine+Rijsbergen:71a,Voorhees:85a,elHamdouchi+Willett:87a,Crestani+Wu:06a,Smucker+Allan:09a,Raiber+Kurland:14c}. Furthermore,
-several inter-document similarity measures were devised to improve
-the cluster hypothesis test results
-\cite{Tombros+Villa+Rijsbergen:02a,Raiber+al:15a}. In addition, a ``reversed''
-cluster hypothesis was formulated stating that documents co-relevant to queries should be similar \cite{Fuhr+al:12a}.
+associated documents tend to be relevant to the same
+requests}''~{\cite{Jardine+Rijsbergen:71a}}.
+The operational interpretation of the hypothesis is that relevant
+documents are more similar to each other than to non-relevant
+documents.
+This foundational principle of IR has been studied extensively over
+the years in order to better understand the implications and
+applications of the
+hypothesis~{\cite{Jardine+Rijsbergen:71a,Voorhees:85a,elHamdouchi+Willett:87a,Crestani+Wu:06a,Smucker+Allan:09a,Raiber+Kurland:14c}}.
+Work in this area has resulted in several inter-document similarity
+measures were devised to improve the cluster hypothesis test
+results~\cite{Tombros+Villa+Rijsbergen:02a,Raiber+al:15a}, and even a
+``reversed'' cluster hypothesis which states that documents
+co-relevant to queries should also be similar~\cite{Fuhr+al:12a}.
 
-On the operational side, the cluster hypothesis has driven a huge body of
-work on document retrieval methods that utilize information induced
-from clusters of similar documents. There are two main classes of
-cluster-based document retrieval methods \cite{Kurland+Lee:04a}. The
-first includes methods that rank document clusters by the presumed
-percentage of relevant documents they contain; then, the cluster
-ranking is transformed to document ranking
-\cite{Jardine+Rijsbergen:71a,Croft:80a,Voorhees:85a,elHamdouchi+Willett:89a,Tombros+Villa+Rijsbergen:02a,Kurland+Lee:04a,Liu+Croft:04a,Kurland+Lee:06a,Liu+Croft:06a,Liu+Croft:06b,Liu+Croft:08a,Kurland+Domshlak:08a,Kurland+Krikon:11a,Raiber+Kurland:13a}. A
-document retrieval method based on supervised ranking of document clusters was the best
-performing in the Web track of TREC 2013 \cite{Thompson+al:13a}.
+On the operational side, the cluster hypothesis has driven a huge
+body of work on document retrieval methods that leverage information
+induced from clusters of similar documents.
+There are two main categories of cluster-based document retrieval
+methods~\cite{Kurland+Lee:04a}.
+The first includes methods that rank document clusters by the
+estimated percentage of relevant documents they contain; then, the
+cluster ranking is transformed to document
+ranking~\cite{Jardine+Rijsbergen:71a,Croft:80a,Voorhees:85a,elHamdouchi+Willett:89a,Tombros+Villa+Rijsbergen:02a,Kurland+Lee:04a,Liu+Croft:04a,Kurland+Lee:06a,Liu+Croft:06a,Liu+Croft:06b,Liu+Croft:08a,Kurland+Domshlak:08a,Kurland+Krikon:11a,Raiber+Kurland:13a}.
+A document retrieval method based on supervised ranking of document
+clusters was the best performing in the Web track of TREC
+2013~\cite{Thompson+al:13a}.
 
 One of the main motivations for pursuing the cluster ranking task is
-the {\em optimal cluster} phenomenon
-\cite{Cutting+al:92a,Tombros+Villa+Rijsbergen:02a,Liu+Croft:06b,Kurland+Domshlak:08a}:
+the {\em optimal cluster}
+phenomenon~\cite{Cutting+al:92a,Tombros+Villa+Rijsbergen:02a,Liu+Croft:06b,Kurland+Domshlak:08a}:
 if the documents most highly ranked by an initial search are
-clustered, there are some resultant clusters that contain a very high
-percentage of relevant documents; the cluster with the highest percentage is termed ``the optimal cluster''. Positioning the
-constituent documents of the optimal cluster at the top ranks of the
-final result list results in precision at top ranks which is
-dramatically better than that of document-based retrieval methods \cite{Tombros+Villa+Rijsbergen:02a,Liu+Croft:06b,Kurland+Domshlak:08a}. A
-case in point, for a standard TREC corpus, the average precision at
-top five ranks (p@5) that results from identifying the optimal cluster
-can reach ~$0.8$ in comparison to $~0.46$ attained by a standard language model
-retrieval \cite{Kurland+Domshlak:08a}\footnote{These performance numbers were reported for TREC's AP corpus with
-  the titles of topics 51-150 serving as queries \cite{Kurland+Domshlak:08a}.}.
+clustered, these clusters tend to contain a very high percentage of
+relevant documents, and the cluster with the highest percentage is
+denoted as ``the optimal cluster''.
+Positioning the constituent documents of the optimal cluster at the
+top of the final result list results in higher overall precision
+scores than other commonly used document-based retrieval
+methods~\cite{Tombros+Villa+Rijsbergen:02a,Liu+Croft:06b,Kurland+Domshlak:08a}.
+A case in point, for a standard TREC corpus, the average precision at
+top five (P@5) that results from identifying the optimal
+cluster can reach ~$0.8$ in comparison to $~0.46$ attained by a
+standard language model retrieval
+\cite{Kurland+Domshlak:08a}\footnote{These performance numbers were
+reported for TREC's AP corpus with the titles of topics 51-150
+serving as queries \cite{Kurland+Domshlak:08a}.}.
 
-The second class of cluster-based document retrieval methods includes those that enrich the document representation with information induced from the clusters \cite{Singhal+Pereira:99a,Kurland+Lee:04a,Liu+Croft:04a,Kurland:09a}; e.g., in the language modeling framework, document language models can be smoothed using cluster language models \cite{Kurland+Lee:04a,Liu+Croft:04a,Kurland:09a}. The motivation is to reduce the potential vocabulary mismatch between the query and relevant documents by enriching a document representation with information induced from similar documents.
+The second category of cluster-based document retrieval methods
+includes those that enrich the document representation with
+information induced from the clusters
+\cite{Singhal+Pereira:99a,Kurland+Lee:04a,Liu+Croft:04a,Kurland:09a};
+e.g., in the language modeling framework, document language models
+can be smoothed using cluster language models
+\cite{Kurland+Lee:04a,Liu+Croft:04a,Kurland:09a}.
+The motivation is to reduce potential vocabulary mismatches between
+queries and relevant documents by enriching a document
+representation with information induced from similar documents.
 
 As in the vast majority of work on ad hoc document retrieval, work on
 the cluster hypothesis and cluster-based document retrieval was
 confined to the standard setting of a single query representing an
-information need. However, it has long been acknowledged that using
-for retrieval multiple queries that represent the same information
-need is of merit \cite{Belkin+al:93a,Belkin+al:95a}. Recently, there
-has been a growing renewed interest in the multiple-queries retrieval
-setting
-\cite{bailey2016uqv100,bailey2017retrieval,bc17-adcs,Thomas+al:17a,Benham+al:19a,Liu+al:19a,Lu+al:19a,Zendel+al:19a}, with solid evidence to its operational feasibility and importance; specifically, it was recently shown that
-query variations automatically selected from a query log of a commercial search engine can be, on average, effective to the same extent as human generated query
-variations \cite{Liu+al:19a}. 
+information need.
+However, it has been recognized for some time that combining multiple
+queries which represent the same information need can dramatically
+improve retrieval effectiveness~\cite{Belkin+al:93a,Belkin+al:95a}.
+Recently, there has been a renewed interest in the importance of
+multiple queries retrieval
+setting~\cite{bailey2016uqv100,bailey2017retrieval,bc17-adcs,Thomas+al:17a,Benham+al:19a,Liu+al:19a,Lu+al:19a,Zendel+al:19a},
+with growing evidence to its operational feasibility and importance.
 
-Previous work on using multiple queries for retrieval has focused on
-different approaches to fusing the retrieved document lists 
-\cite{Belkin+al:93a,Belkin+al:95a,Pickens+al:08a,bailey2017retrieval,bc17-adcs} and
-on using the queries for relevance modeling (query expansion)
-\cite{Lu+al:19a}. In this paper, we address the multiple-queries setting in the cluster-based document retrieval realm. To the best of our knowledge, there are no previous studies of cluster-based document retrieval or the cluster hypothesis with multiple queries.
+The feasibility of operationalizing this idea was initially explored
+nearly a decade ago in the Bing search engine~{\cite{Sheldon+al:11a}}.
+It was recently shown that query variations automatically selected
+from a query log of a commercial search engine can be, on average,
+effective to the same extent as human generated query
+variations~\cite{Liu+al:19a}.
+Other recent work on using multiple queries for retrieval has focused
+primarily on fusion of the retrieved document
+lists~\cite{Belkin+al:93a,Belkin+al:95a,Pickens+al:08a,bailey2017retrieval,bc17-adcs}, relevance modeling (query expansion)~\cite{Lu+al:19a}, and
+query performance prediction~{\cite{Zendel+al:19a}}.
+Last year, Microsoft released a public API of highly effective
+contextual query embeddings which can be used for a variety of
+retrieval tasks which are constructed automatically clustering
+similar queries in Bing search logs~{\cite{zhang2019generic}} using
+a random walk over click
+graphs~{\cite{craswell2007random,Sheldon+al:11a,Liu+al:19a}}.
 
-We propose a suite of {\em retrieval templates} that adapt existing cluster-based retrieval approaches, which were originally designed to work with a single query, to use multiple queries representing the same information need. We use the term ``templates'' as these can be instantiated in various ways to yield specific retrieval methods; e.g., by selecting the clustering algorithm and the specific cluster-based retrieval method to adapt. The adaptations can be applied for a large number of cluster-based retrieval methods, whether these are based on cluster ranking or on enriching document representations using cluster-based information. The adaptation techniques operate at the query level, document-list level and feature level.
+In this paper, we explore the multiple-queries setting in the
+cluster-based document retrieval realm.
+To the best of our knowledge, there are no previous studies of
+cluster-based document retrieval or the cluster hypothesis with
+multiple queries.
+We propose a suite of {\em retrieval templates} that adapt existing
+cluster-based retrieval approaches, which were originally designed to
+work with a single query, to use multiple queries representing the
+same information need.
+We use the terminology ``template'' as each model can be instantiated
+in various ways to yield specific retrieval methods; e.g., by
+selecting the clustering algorithm and the specific cluster-based
+retrieval method to adapt.
+The framework can be applied to a large number of cluster-based
+retrieval methods, including methods that are based on cluster
+ranking and methods that enrich document representations using
+cluster-based information.
+Our adaptation techniques operate at the query level, document-list
+level and feature level.
 
-Extensive empirical evaluation attests to the clear merits of the
-proposed retrieval templates. The resultant methods substantially outperform state-of-the-art cluster-based
-retrieval using a single query as is standard. The performance of our methods also substantially 
-transcends that of the strongest baselines reported in the literature for utilizing multiple
+Extensive empirical evaluation validate the effectiveness gains
+achievable when using retrieval templates for cluster-based
+retrieval.
+The resultant methods substantially outperform state-of-the-art
+cluster-based retrieval using a single query as is standard.
+The performance of our methods also substantially exceeds that of the
+strongest baselines reported in the literature for utilizing multiple
 queries for retrieval.
 
 In addition, we test the cluster hypothesis with queries of varying
-effectiveness and arrive to an interesting finding: for badly
-performing queries the hypothesis can hold to a larger extent than for
-highly effective queries. That is, using highly effective queries for retrieval yields result lists
-where relevant documents are less similar to each other than in result lists retrieved for
-poorly performing queries. This finding helps to explain another important, and somewhat striking, finding that has emerged in our analysis: state-of-the-art
-cluster-based retrieval methods can fall short with respect to
-standard document retrieval when using highly effective
-queries. However, their merits are quite emphasized when using queries
-of moderate/poor effectiveness.
+effectiveness and arrive to an additional interesting finding: for
+poorly performing queries the cluster hypothesis holds to a larger
+extent than for highly effective queries.
+That is, using highly effective queries for retrieval yields result
+lists where relevant documents are less similar to each other than
+in the result lists retrieved for poorly performing queries.
+\shane{This may actually be a result of variant fusion which improves
+diversification as in the de Rijke paper.}
+This finding helps to explain another important, and somewhat
+striking finding that has emerged in our analysis: state-of-the-art
+cluster-based retrieval methods can be less effective than standard
+document retrieval when using highly effective queries.
+However, the merits of cluster-based document retrieval still hold in
+the vast majority of cases where the initial query provided to the
+retrieval system is of average to poor effectiveness.
 
-Additional important finding in our analysis is that the percentage of 
-relevant documents in an optimal cluster is dramatically affected by query effectiveness. A case in
-point, the optimal cluster numbers reported in the past for TREC's
-topic titles \cite{Liu+Croft:06b,Kurland+Domshlak:08a} can be dramatically different for different queries representing the same information needs (topics). 
-
-
+An additional important finding in our analysis is that the percentage
+of relevant documents in an optimal cluster is dramatically affected
+by query effectiveness.
+A case in point, the optimal cluster numbers reported in the past for
+TREC's topic titles \cite{Liu+Croft:06b,Kurland+Domshlak:08a} can be
+dramatically different for different queries representing the same
+information needs (topics).
 
 Our contributions can be summarized as follows:
 \begin{itemize}
-\item This is the first study, to the best of our knowledge, of the
-  cluster-based document retrieval realm in a retrieval setting with
-  multiple queries representing the same information need.
+\item This is the first study of the cluster-based document retrieval
+realm in a retrieval setting with multiple queries representing the
+same information need.
 \item We study the cluster hypothesis with queries of varying
-  effectiveness and empirically show that for highly effective queries
-  the test holds to a lower degree than for moderately and poorly
-  performing queries.
-\item We empirically demonstrate that the relative effectiveness of state-of-the-art cluster-based document retrieval methods with respect to standard document-based retrieval methods can be dramatically affected by the effectiveness of the query used.
+effectiveness and empirically show that for highly effective queries
+the test holds to a lower degree than for moderately and poorly
+performing queries.
+\item We empirically demonstrate that the relative effectiveness of
+state-of-the-art cluster-based document retrieval methods with
+respect to standard document-based retrieval methods can be
+dramatically affected by the effectiveness of the query used.
 \item We propose a suite of retrieval templates that allow to adapt
-  various cluster-based retrieval methods to utilize multiple queries. The resultant effectiveness
-  of retrieval methods instantiated from these templates transcends
-  the state-of-the-art in (i) cluster-based retrieval using a single query and (ii) prior work on utilizing multiple queries for retrieval.
+various cluster-based retrieval methods to utilize multiple queries.
+The resultant effectiveness of retrieval methods instantiated from
+these templates transcends the state-of-the-art in (i) cluster-based
+retrieval using a single query and (ii) prior work on utilizing
+multiple queries for retrieval.
 \end{itemize}
-
-
-
 
