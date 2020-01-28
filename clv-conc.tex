@@ -1,2 +1,39 @@
-\section{Conclusions}
+\section{Conclusions an Future Work}
   \label{sec:conc}
+
+  We presented the first study of using multiple queries to represent
+  an information need in the cluster-based document retrieval realm.
+
+  We first studied the cluster hypothesis using multiple queries. We
+  found that the cluster hypothesis holds to a larger extent,
+  according to a specific test, for highly effective queries than for
+  less effective queries. This attests to the fact that top-retrieved
+  relevant documents are less similar to each other with increasing effectiveness of the query used for retrieval.
+
+  We then studied the {\em optimal cluster} phenomenon with respect to
+  the effectiveness of the query used for retrieval. The optimal
+  cluster is a cluster of similar documents which contains the highest
+  percentage of relevant documents with respect to clusters of similar
+  documents induced from top-retrieved documents. We found that the percentage of relevant documents in the optimal cluster increases with increased effectiveness of the query used for retrieval.
+
+  Another important finding of our analysis was that the relative
+  effectiveness of cluster-based document retrieval methods can change
+  with respect to the effectiveness of the (single) query used for
+  retrieval. Furthermore, we showed that state-of-the-art
+  cluster-based retrieval methods can, in fact, underperform standard document retrieval if highly effective queries are used.
+
+  We proposed a suite of retrieval templates that allow to adapt
+  existing cluster-based document retrieval methods which were
+  designed to work with a single query to utilize multiple
+  queries. The templates can be instantiated to yield specific
+  retrieval methods by selecting, for example, the cluster-based
+  retrieval method to use. The templates leverage information induced from the multiple queries at the query level, document list level (by fusion), and feature level --- namely, document-query and cluster-query similarity estimates.
+
+  Extensive empirical evaluation showed that the best performing
+  methods instantiated from the templates are highly effective,
+  specifically, with respect to very strong baselines of using multiple queries and state-of-the-art cluster-based document retrieval methods that utilize a single query.
+
+  For future work we plan to explore the development of additional
+  templates and study the instantiations of templates with additional
+  clustering algorithms, cluster-based retrieval methods and fusion
+  techniques.

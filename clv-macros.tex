@@ -26,7 +26,7 @@
 \newcommand{\pQuery}{q^{pseudo}}
 \newcommand{\conQuery}{q^{con}}
 \newcommand{\numQuery}{m}
-\newcommand{\numTop}{k}
+\newcommand{\numTop}{\gamma}
 \newcommand{\numRet}{n}
 \newcommand{\numVariants}{v}
 \newcommand{\querySet}{{\mathcal Q}}
@@ -34,7 +34,7 @@
 \newcommand{\corpus}{{\mathcal D}}
 \newcommand{\queryVar}[1]{\query_{#1}}
 \newcommand{\retList}{L}
-\newcommand{\initTag}{init}
+\newcommand{\initTag}{con}
 \newcommand{\finalTag}{final}
 \newcommand{\finalList}{\retList_{\finalTag}}
 \newcommand{\initRetList}{\retList_{\initTag}}
@@ -105,9 +105,49 @@
 \newcommand{\featureNoR}{{SimClust}\xspace}
 \newcommand{\queryCatNoR}{{QueryConcat}\xspace}
 
-
+%%% cluster-based retrieval methods
 \newcommand{\rankInList}[2]{rank(#1;#2)}
 \newcommand{\clustMRF}{\method{ClustMRF}\xspace}
 \newcommand{\geoClust}{\method{GeoClust}\xspace}
 \newcommand{\interp}{\method{Interp-f}\xspace}
 
+%%% baselines
+\newcommand{\ariRM}{\method{AriRM}\xspace}
+\newcommand{\init}{\method{Initial}\xspace}
+\newcommand{\inst}[2]{{#1}\textsubscript{#2}}
+
+%%% queries
+\newcommand{\titleQuery}{\method{Title}\xspace}
+\newcommand{\minAP}{\method{Min}\xspace}
+\newcommand{\maxAP}{\method{Max}\xspace}
+\newcommand{\medAP}{\method{Q2}\xspace}
+\newcommand{\qOneAP}{\method{Q1}\xspace}
+\newcommand{\qThreeAP}{\method{Q3}\xspace}
+
+%%% metrics
+\newcommand{\map}{MAP\xspace}
+\newcommand{\precFive}{p@5\xspace}
+\newcommand{\ndcg}{NDCG\xspace}
+\newcommand{\diffp}[1]{\%{#1}}
+
+
+%%% collections
+\newcommand{\robust}{ROBUST\xspace}
+\newcommand{\cw}{CW12\xspace}
+
+%%% significance
+\newcommand{\statSymbolInit}{\star}
+\newcommand{\initSpace}{\hspace{0.6em}}
+\newcommand{\statSymbolRRF}{1}
+\newcommand{\statSymbolQLtitle}{2}
+\newcommand{\statSymbolQLconc}{3}
+\newcommand{\statSymbolCMRFtitle}{4}
+\newcommand{\statSymbolGeoClustTitle}{5}
+\newcommand{\statSymbolInterpTitle}{6}
+\newcommand{\statSymbolAriRMfuse}{7}
+
+\newcommand{\statSymbolRRFN}{1}
+\newcommand{\statSymbolQLconcN}{2}
+\newcommand{\statSymbolCMRFtitleN}{3}
+\newcommand{\statSymbolGeoClustTitleN}{4}
+\newcommand{\statSymbolInterpTitleN}{5}

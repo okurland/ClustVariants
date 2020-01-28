@@ -1,4 +1,6 @@
+%
 \documentclass[sigconf,natbib=true,anonymous=true]{acmart}
+\usepackage{stackengine}
 \usepackage[normalem]{ulem}
 \usepackage{url}
 \usepackage{xcolor} 
@@ -65,6 +67,7 @@
 \title{Cluster-Based Document Retrieval with Multiple Queries}
 
 \begin{document}
+
 \input{clv-abstract}
 \maketitle
 \input{clv-intro}
@@ -72,8 +75,8 @@
 \input{clv-model}
 \input{clv-eval.tex}
 \input{clv-conc.tex}
-
-\newpage
+%\clearpage
+%\newpage
 \balance
 \bibliographystyle{acm-reference-fmt}
 %%-OK: added a local bib file; should merge

@@ -8,11 +8,11 @@ The operational interpretation of the hypothesis is that relevant
 documents are more similar to each other than to non-relevant
 documents.
 This foundational principle of IR has been studied extensively over
-the years in order to better understand the implications and
+the years to better understand the implications and
 applications of the
 hypothesis~{\cite{Jardine+Rijsbergen:71a,Voorhees:85a,elHamdouchi+Willett:87a,Crestani+Wu:06a,Smucker+Allan:09a,Raiber+Kurland:14c}}.
-Work in this area has resulted in several inter-document similarity
-measures were devised to improve the cluster hypothesis test
+Work in this area has also resulted in several inter-document similarity
+measures that were devised to improve the cluster hypothesis test
 results~\cite{Tombros+Villa+Rijsbergen:02a,Raiber+al:15a}, and even a
 ``reversed'' cluster hypothesis which states that documents
 co-relevant to queries should also be similar~\cite{Fuhr+al:12a}.
@@ -34,16 +34,16 @@ One of the main motivations for pursuing the cluster ranking task is
 the {\em optimal cluster}
 phenomenon~\cite{Cutting+al:92a,Tombros+Villa+Rijsbergen:02a,Liu+Croft:06b,Kurland+Domshlak:08a}:
 if the documents most highly ranked by an initial search are
-clustered, these clusters tend to contain a very high percentage of
+clustered, some of these clusters tend to contain a very high percentage of
 relevant documents, and the cluster with the highest percentage is
 denoted as ``the optimal cluster''.
 Positioning the constituent documents of the optimal cluster at the
-top of the final result list results in higher overall precision
+top of the final result list results in much higher overall precision
 scores than other commonly used document-based retrieval
 methods~\cite{Tombros+Villa+Rijsbergen:02a,Liu+Croft:06b,Kurland+Domshlak:08a}.
 A case in point, for a standard TREC corpus, the average precision at
-top five (P@5) that results from identifying the optimal
-cluster can reach ~$0.8$ in comparison to $~0.46$ attained by a
+top five (p@5) that results from identifying the optimal
+cluster can reach $0.8$ in comparison to $0.46$ attained by a
 standard language model retrieval
 \cite{Kurland+Domshlak:08a}\footnote{These performance numbers were
 reported for TREC's AP corpus with the titles of topics 51-150
@@ -68,7 +68,7 @@ However, it has been recognized for some time that combining multiple
 queries which represent the same information need can dramatically
 improve retrieval effectiveness~\cite{Belkin+al:93a,Belkin+al:95a}.
 Recently, there has been a renewed interest in the importance of
-multiple queries retrieval
+the multiple-queries retrieval
 setting~\cite{bailey2016uqv100,bailey2017retrieval,bc17-adcs,Thomas+al:17a,Benham+al:19a,Liu+al:19a,Lu+al:19a,Zendel+al:19a},
 with growing evidence to its operational feasibility and importance.
 
@@ -77,17 +77,30 @@ nearly a decade ago in the Bing search engine~{\cite{Sheldon+al:11a}}.
 It was recently shown that query variations automatically selected
 from a query log of a commercial search engine can be, on average,
 effective to the same extent as human generated query
-variations~\cite{Liu+al:19a}.
-Other recent work on using multiple queries for retrieval has focused
-primarily on fusion of the retrieved document
-lists~\cite{Belkin+al:93a,Belkin+al:95a,Pickens+al:08a,bailey2017retrieval,bc17-adcs}, relevance modeling (query expansion)~\cite{Lu+al:19a}, and
-query performance prediction~{\cite{Zendel+al:19a}}.
-Last year, Microsoft released a public API of highly effective
-contextual query embeddings which can be used for a variety of
-retrieval tasks which are constructed automatically clustering
-similar queries in Bing search logs~{\cite{zhang2019generic}} using
-a random walk over click
-graphs~{\cite{craswell2007random,Sheldon+al:11a,Liu+al:19a}}.
+variations~\cite{Liu+al:19a}.  Other recent work on using multiple
+queries for retrieval has focused primarily on fusion of the retrieved
+document
+lists~\cite{Belkin+al:93a,Belkin+al:95a,Pickens+al:08a,bailey2017retrieval,bc17-adcs},
+relevance modeling (query expansion)~\cite{Lu+al:19a}, and query
+performance prediction~{\cite{Zendel+al:19a}}. Another interesting
+application of query variations was the contextual query embeddings
+released by Microsoft as a public API~{\cite{zhang2019generic}}. These embeddings were constructed by applying a random walk to their internal click graph to
+identify queries of similar intent ~{\cite{craswell2007random,Sheldon+al:11a,Liu+al:19a}}. The query clusters
+were then used to learn the contextual query embeddings. The key idea
+is that releasing query logs for research purposes is rarely possible
+for privacy reasons. However, the embedding can be redistributed and
+used directly by new learning models that wish to leverage query-based
+similarity features directly.
+
+
+
+
+%Last year, Microsoft released a public API of highly effective
+%contextual query embeddings which can be used for a variety of
+%retrieval tasks which are constructed automatically clustering
+%similar queries in Bing search logs~{\cite{zhang2019generic}} using
+%a random walk over click
+%graphs~{\cite{craswell2007random,Sheldon+al:11a,Liu+al:19a}}.
 
 In this paper, we explore the multiple-queries setting in the
 cluster-based document retrieval realm.
@@ -109,9 +122,9 @@ cluster-based information.
 Our adaptation techniques operate at the query level, document-list
 level and feature level.
 
-Extensive empirical evaluation validate the effectiveness gains
+Extensive empirical evaluation validates the effectiveness gains
 achievable when using retrieval templates for cluster-based
-retrieval.
+retrieval with multiple queries.
 The resultant methods substantially outperform state-of-the-art
 cluster-based retrieval using a single query as is standard.
 The performance of our methods also substantially exceeds that of the
@@ -119,18 +132,18 @@ strongest baselines reported in the literature for utilizing multiple
 queries for retrieval.
 
 In addition, we test the cluster hypothesis with queries of varying
-effectiveness and arrive to an additional interesting finding: for
-poorly performing queries the cluster hypothesis holds to a larger
-extent than for highly effective queries.
-That is, using highly effective queries for retrieval yields result
-lists where relevant documents are less similar to each other than
-in the result lists retrieved for poorly performing queries.
-\shane{This may actually be a result of variant fusion which improves
-diversification as in the de Rijke paper.}
-This finding helps to explain another important, and somewhat
-striking finding that has emerged in our analysis: state-of-the-art
-cluster-based retrieval methods can be less effective than standard
-document retrieval when using highly effective queries.
+effectiveness and arrive to an additional interesting finding: for queries of relatively low effectiveness, the cluster hypothesis holds to a larger
+extent than for highly effective queries.  That is, using highly
+effective queries for retrieval yields result lists where relevant
+documents are less similar to each other than in the result lists
+retrieved for less effective queries.
+%\shane{This may actually be
+%  a result of variant fusion which improves diversification as in the
+%  de Rijke paper.}
+This finding helps to explain another important,
+and somewhat striking finding that has emerged in our analysis:
+state-of-the-art cluster-based retrieval methods can be less effective
+than standard document retrieval when using highly effective queries.
 However, the merits of cluster-based document retrieval still hold in
 the vast majority of cases where the initial query provided to the
 retrieval system is of average to poor effectiveness.

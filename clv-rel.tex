@@ -3,26 +3,33 @@
 The merits of applying fusion to document lists retrieved for queries
 representing the same information need is now well
 understood~\cite{Belkin+al:93a,Belkin+al:95a,Pickens+al:08a,bailey2017retrieval,bc17-adcs,Benham+al:19a}.
-Our first retrieval template proposed uses cluster-based retrieval to
-re-rank a list fused from the documents retrieved for a set of
-queries representing the same information need.
-We also explore the merits of applying fusion after each of the lists
-retrieved for the queries was re-ranked using cluster-based
-retrieval.
-Benham and Culpepper \cite{bc17-adcs} showed that reciprocal rank
-fusion \cite{Cormack+al:09a} consistently yields state-of-the-art
-performance when fusing document lists retrieved for multiple queries
-representing the same information need.
-Our best performing methods substantially outperform this fusion
-approach.
-\shane{We should be a little careful here as someone will almost
-certainly point out that this is the best unsupervised method.
-We have never done it, but supervised techniques almost certainly
-perform better such as LambdaMerge which we never got to work
-properly.
-We could add the numbers in the table from the best performing TREC
-run for the Robust collection.
-We cannot do that for CW12.}
+One of the retrieval templates we propose uses cluster-based retrieval
+to re-rank a list fused from the documents retrieved for a set of
+queries representing the same information need.  We also explore the
+merits of applying fusion after each of the lists retrieved for the
+queries was re-ranked using cluster-based retrieval.  Benham and
+Culpepper \cite{bc17-adcs} showed that reciprocal rank fusion
+\cite{Cormack+al:09a} consistently yields state-of-the-art performance
+when fusing document lists retrieved for multiple queries representing
+the same information need.  Our best performing methods substantially
+outperform this fusion approach. We note that reciprocal rank fusion
+is an unsupervised fusion method. One could potentially further
+improve the performance of our methods, some of which rely on fusion
+of document lists, by using supervised fusion (e.g.,
+\cite{Sheldon+al:11a}). A case in point, one of our two best
+performing methods applies fusion to lists which are re-ranked by a
+cluster-based retrieval method. Improving the fusion technique with
+respect to the reciprocal rank fusion with which we currently instantiate our
+templates can potentially increase the effectiveness of this method. We leave this exploration for future work.
+
+%\shane{We should be a little careful here as someone will almost
+%certainly point out that this is the best unsupervised method.
+%We have never done it, but supervised techniques almost certainly
+%perform better such as LambdaMerge which we never got to work
+%properly.
+%We could add the numbers in the table from the best performing TREC
+%run for the Robust collection.
+%We cannot do that for CW12.}
 
 Recent work on query performance prediction showed that the relative
 prediction quality posted by prediction methods can significantly
@@ -41,11 +48,25 @@ into the search engine were fused with a centroid of the cluster with
 which the query was associated.
 The best query cluster to use for reranking is easily identified at
 runtime using an auxiliary index of previously seen queries.
-This work focuses on clustering document at query time, in contrast
-to clustering queries at query time..
+Our work focuses on clustering documents at query time, in contrast
+to clustering queries offline \cite{Benham+al:19a}.
 
-Previous work on cluster-based fusion of retrieved lists used the
-documents in retrieval lists along with multiple ranking models for a
+
+There was some work on cluster-based fusion of retrieved lists
+\cite{Kozorovitzky+Kurland:11b}. Documents in lists retrieved by applying different
+retrieval approaches for a {\em single query} were
+clustered. Then, a cluster-based retrieval approach was applied using
+these clusters to perform the fusion. This fusion approach is easily derived as a specific instantiation of one of the retrieval templates we present for retrieval using {\em multiple queries}. While the resultant performance is effective, we present approaches which are substantially more effective in our setting.
+
+
+
+\endinput
+
+Previous work on cluster-based fusion of lists retrieved by different
+search systems for a single query used the documents in retrieved
+lists for clustering
+
+along with multiple ranking models for a
 {\em single query} to induce cluster~\cite{Kozorovitzky+Kurland:11b}.
 \shane{Did I get this right?
 Sorry the initial text was a little unclear.}

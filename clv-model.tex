@@ -1,6 +1,6 @@
 \section{Retrieval Framework}
 Throughout this section we assume a fixed information need and a fixed document corpus $\corpus$. Suppose that the queries in a set 
-$\querySet=\set{\query_1,\ldots,\query_{\numQuery}}$ can represent --- to varying degrees of effectiveness
+$\querySet=\set{\query_0,\ldots,\query_{\numQuery}}$ can represent --- to varying degrees of effectiveness
 --- the information need for retrieval. Our goal is to devise retrieval methods that
 utilize $\querySet$ to produce a single result list of $\numRet$ documents. 
 
@@ -107,8 +107,8 @@ $\query_i$ to yield $\retList_i \definedas
 \retListParm{\query_i,\corpus}{\retMethodDoc;\numRet}$. We then form a
 set of documents, $\arbSet$, from all those that appear at the
 top-$\arbParam$ ranks of at least one of the lists $\retList_i$;
-$\arbParam$ is set to the minimal value such that $\arbSet$ includes
-at least $\numRet$ documents. We then apply the cluster-based method upon $\arbSet$; in doing so, each document ($\doc$) - query ($\query$) similarity estimate, $\simFn{\query}{\doc}$, is replaced with $\frac{1}{\vert \querySet \vert} \sum_{\query_i \in \querySet} \simFn{\query}{\doc}$ and each cluster ($\clust$) - query ($\query$) similarity estimate $\simFn{\query}{\clust}$, is replaced with $\frac{1}{\vert \querySet \vert} \sum_{\query_i \in \querySet} \simFn{\query}{\clust}$.
+$\arbParam$ is set to the maximal value such that $\arbSet$ includes
+at most $\numRet$ documents. We then apply the cluster-based method upon $\arbSet$; in doing so, each document ($\doc$) - query ($\query$) similarity estimate, $\simFn{\query}{\doc}$, is replaced with $\frac{1}{\vert \querySet \vert} \sum_{\query_i \in \querySet} \simFn{\query}{\doc}$ and each cluster ($\clust$) - query ($\query$) similarity estimate $\simFn{\query}{\clust}$, is replaced with $\frac{1}{\vert \querySet \vert} \sum_{\query_i \in \querySet} \simFn{\query}{\clust}$.
 
 \myparagraph{\featureNoR}
 The \firstmention{\featureNoR} method applies the same principle applied by the \poolClust method: document-query and cluster-query similarity estimates in the cluster-based method are replaced with the arithmetic means, over the queries in $\querySet$, of the corresponding estimates. The difference with the \poolClust method is the set of documents upon which the cluster-based method is applied: {\em some} query $\query$ from $\querySet$ is selected, retrieval is performed over the corpus with respect to this query using the document-based method, and the resultant list, $\retList \definedas \retListParm{\query,\corpus}{\retMethodDoc;\numRet}$ is re-ranked using the cluster-based method. The goal of studying this method is to evaluate the merit of re-ranking a single retrieved list using the cluster-based retrieval method where query-similarity estimates are based on the set of queries rather than on a single query as is standard.
@@ -135,7 +135,8 @@ likelihood estimate induced from $x$.
 
 
 \myparagraph{Document-based retrieval method}
-We use standard language-model-based retrieval \cite{Lafferty+Zhai:01a} for the document-based retrieval method $\retMethodDoc$. Specifically, the retrieval score of document $\doc$ with respect to query $\query$ is $\simFn{\query}{\doc}$. Note that this retrieval method is rank equivalent to the query likelihood model \cite{Song+Croft:99a}.
+We use standard language-model-based retrieval \cite{Lafferty+Zhai:01a} for the document-based retrieval method $\retMethodDoc$ as it is the common practice in work on cluster-based document retrieval, e.g.,~\cite{Kurland+Lee:04a,Kurland+Domshlak:08a,Kurland:09a,Raiber+Kurland:13a}.
+Specifically, the retrieval score of document $\doc$ with respect to query $\query$ is $\simFn{\query}{\doc}$. Note that this retrieval method is rank equivalent to the query likelihood model \cite{Song+Croft:99a}.
 
 \myparagraph{Clustering algorithm} The merits of using small
 (overlapping) nearest-neighbor clusters for cluster-based document
@@ -151,7 +152,7 @@ templates. To use each of the three methods in the \fuseClust template, the docu
 
 The first cluster-based retrieval method is the state-of-the-art \clustMRF method
 \cite{Raiber+Kurland:13a}. \clustMRF was the best performing document retrieval method in
-the Web track of TREC 2013 \cite{Thompson+al:13a}. It is based on supervised ranking of the clusters. The cluster ranking is transformed to document ranking by replacing each cluster with its constituent documents while omitting repeats. The order of documents within a cluster is determined based on their query similarity. \clustMRF uses three groups of features to rank clusters which are based on (i) query-similarity estimates of documents in clusters, (ii) inter-document similarities in a cluster, and (iii) query-independent relevance measures of documents in a cluster (e.g., entropy of the term distribution of a document, its inverse compression ratio, and stopwords-based features).
+the Web track of TREC 2013 \cite{Thompson+al:13a}. It is based on supervised ranking of the clusters. The cluster ranking is transformed to document ranking by replacing each cluster with its constituent documents while omitting repeats. The order of documents within a cluster is determined based on their query similarity. \clustMRF uses three groups of features to rank clusters: (i) query-similarity estimates of documents in clusters, (ii) inter-document similarities in a cluster, and (iii) query-independent relevance measures of documents in a cluster (e.g., entropy of the term distribution of a document, its inverse compression ratio, and stopwords-based features).
 
 %Thus, to use \clustMRF in the \fuseClust, \poolClust and \feature templates, the document-query similarity estimate, $\simFn{\query}{\doc}$, is simply replaced with $\frac{1}{\vert \querySet \vert} \sum_{\query_i \in \querySet} \simFn{\query}{\doc}$ as described above. 
 
@@ -160,20 +161,22 @@ The second cluster-based retrieval method, \geoClust \cite{Kurland+Krikon:11a}, 
 %To use \geoClust in the \fuseClust, \poolClust and \feature templates, the estimates for document-query similarities should be replaced as in \clustMRF.
 
 The third cluster-based retrieval method,
-\interp~\cite{Kurland:09a,Kozorovitzky+Kurland:11b}\footnote{We use the highly effective general version of \interp which can work with any document-query similarity estimate and which was used for cluster-based fusion of document lists \cite{Kozorovitzky+Kurland:11b}.}, is based on
-directly ranking document using cluster-based
+\interp~\cite{Kurland:09a}
+%\footnote{We use the highly effective general version of \interp which can work with any document-query similarity estimate and which was used for cluster-based fusion of document lists \cite{Kozorovitzky+Kurland:11b}.},
+is based on
+directly ranking documents using cluster-based
 information. Specifically, to rank a document set $\arbSet$ with respect to query $\query$, the
 retrieval score of document $\doc$ ($\in \arbSet$) is:
-\begin{align}
-  \label{eq:interpf}
+\begin{equation}
+ \label{eq:interpf}
 (1-\lambda)
-&\frac{\simFn{\query}{\doc}}{\sum_{\doc' \in \arbSet}
-  \simFn{\query}{\doc'}} +  \\
-& \lambda \sum_{\clust \in \cluster{\arbSet}}
-\frac{\prod_{\doc' \in \clust} \simFn{\query}{\doc'}}{\sum_{\clust' \in \cluster{\arbSet}} \prod_{\doc'' \in \clust'} \simFn{\query}{\doc''}}  \frac{\sum_{\doc' \in \clust} \simFn{\doc'}{\doc}}{\sum_{\doc'' \in \arbSet}\sum_{\doc' \in \clust} \simFn{\doc'}{\doc''}}; \notag
-\end{align}
+\frac{\simFn{\query}{\doc}}{\sum_{\doc' \in \arbSet}
+  \simFn{\query}{\doc'}} + 
+\lambda 
+\frac{\sum_{\clust \in \cluster{\arbSet}}\simFn{\query}{\clust}\simFn{\clust}{\doc}}{\sum_{\doc' \in \arbSet}\sum_{\clust \in \cluster{\arbSet}}\simFn{\query}{\clust}\simFn{\clust}{\doc'}}  ; \notag
+\end{equation}
 $\lambda$ is a free parameter.
-\interp rewards document $\doc$ if its query similarity is high and/or it is highly similar to documents in clusters whose constituent documents are highly similar to the query.
+\interp rewards document $\doc$ if its query similarity is high and/or it is highly similar to document clusters whose constituent documents are highly similar to the query.
 
 
 
