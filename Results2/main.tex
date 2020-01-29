@@ -1,0 +1,100 @@
+\begin{tabular}{lllllll}
+&
+\multicolumn{3}{c}{\robust} &
+\multicolumn{3}{c}{\cw}\\
+\cmidrule(r){2-4} \cmidrule(l){5-7}
+\multirow{1}{*}{} &
+\multicolumn{1}{c}{\map} &
+\multicolumn{1}{c}{\precFive}&
+\multicolumn{1}{c}{\ndcg} &
+\multicolumn{1}{c}{\map} &
+\multicolumn{1}{c}{\precFive}&
+\multicolumn{1}{c}{\ndcg}  \\
+
+\toprule
+\textsuperscript{\statSymbolRRF}\inst{\init}{\fuseClust}
+&
+$.268$ &
+$.593$ &
+$.481$ &
+$.197$ &
+$.560$ &
+$.512$ 
+\\
+\textsuperscript{\statSymbolQLtitle}\inst{\init}{\feature}
+&
+$.224\stackanchor{}{\statSymbolRRF}$ &
+$.481\stackanchor{}{\statSymbolRRF}$ &
+$.405\stackanchor{}{\statSymbolRRF}$ &
+$.148\stackanchor{}{\statSymbolRRF}$ &
+$.444\stackanchor{}{\statSymbolRRF}$ &
+$.415\stackanchor{}{\statSymbolRRF}$ 
+\\
+\textsuperscript{\statSymbolQLconc}\inst{\init}{\queryCat}
+&
+$.288\stackanchor{}{\statSymbolRRF\statSymbolQLtitle}$ &
+$.603\stackanchor{}{\statSymbolQLtitle}$ &
+$.496\stackanchor{}{\statSymbolRRF\statSymbolQLtitle}$ &
+$.157\stackanchor{}{\statSymbolRRF}$ &
+$.511\stackanchor{}{\statSymbolRRF\statSymbolQLtitle}$ &
+$.458\stackanchor{}{\statSymbolRRF\statSymbolQLtitle}$ 
+\\
+\textsuperscript{\statSymbolCMRFtitle}\inst{\clustMRF}{\titleQuery}
+&
+$.231\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.511\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.423\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.143\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.436\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.406\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ 
+\\
+\textsuperscript{\statSymbolGeoClustTitle}\inst{\geoClust}{\titleQuery}
+&
+$.230\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.491\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.417\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.142\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.422\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.398\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ 
+\\
+\textsuperscript{\statSymbolInterpTitle}\inst{\interp}{\titleQuery}
+&
+$.224\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.492\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.418\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolQLconc}$ &
+$.148\stackanchor{}{\statSymbolRRF}$ &
+$.444\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.415\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ 
+\\
+\textsuperscript{\statSymbolAriRMfuse}\ariRM
+&
+$.271\stackanchor{}{\statSymbolQLtitle\statSymbolQLconc\statSymbolCMRFtitle\statSymbolInterpTitle}$ &
+$.576\stackanchor{}{\statSymbolQLtitle\statSymbolQLconc\statSymbolCMRFtitle\statSymbolInterpTitle}$ &
+$.476\stackanchor{}{\statSymbolQLtitle\statSymbolQLconc\statSymbolCMRFtitle\statSymbolInterpTitle}$ &
+$.188\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolQLconc\statSymbolCMRFtitle\statSymbolInterpTitle}$ &
+$.507\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolInterpTitle}$ &
+$.477\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolCMRFtitle\statSymbolInterpTitle}$ 
+\\
+\addlinespace
+\midrule
+\inst{\clustMRF}{\clustFuse}
+&
+$.280\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle}$ &
+$\underline{.608}\stackanchor{}{\statSymbolQLtitle\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle\statSymbolAriRMfuse}$ &
+$.499\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle\statSymbolAriRMfuse}$ &
+$\underline{.210}\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolQLconc\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle\statSymbolAriRMfuse}$ &
+$\underline{.640}\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolQLconc\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle\statSymbolAriRMfuse}$ &
+$\underline{.566}\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolQLconc\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle\statSymbolAriRMfuse}$ 
+\\
+\inst{\interp}{\queryCat}
+&
+$\underline{.290}\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle\statSymbolAriRMfuse}$ &
+$\underline{.608}\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle\statSymbolAriRMfuse}$ &
+$\underline{.502}\stackanchor{}{\statSymbolRRF\statSymbolQLtitle\statSymbolQLconc\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle\statSymbolAriRMfuse}$ &
+$.193\stackanchor{}{\statSymbolQLtitle\statSymbolQLconc\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle}$ &
+$.577\stackanchor{}{\statSymbolQLtitle\statSymbolQLconc\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle\statSymbolAriRMfuse}$ &
+$.522\stackanchor{}{\statSymbolQLtitle\statSymbolQLconc\statSymbolCMRFtitle\statSymbolGeoClustTitle\statSymbolInterpTitle\statSymbolAriRMfuse}$ 
+\\
+
+
+\end{tabular}

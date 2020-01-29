@@ -1,0 +1,201 @@
+\begin{tabular}{|l|l| l| l| l| l| l| l| l| l| l| l| l| l| l| l| l| l| l| l| l| l| l||l| l|}
+
+\hline
+\multirow{1}{*}{} &&
+\multicolumn{3}{c|}{5} &
+\multicolumn{3}{c|}{15}\\
+\hline
+\multirow{1}{*}{} &&
+\multicolumn{1}{c|}{MAP} &
+\multicolumn{1}{c|}{P@5}&
+\multicolumn{1}{c|}{NDCG} &
+\multicolumn{1}{c|}{MAP} &
+\multicolumn{1}{c|}{P@5}&
+\multicolumn{1}{c|}{NDCG}  \\
+
+\hline
+& \textsuperscript{1}RRF
+&
+$.268$ &
+$.593$ &
+$.481$ &
+$.197$ &
+$.560$ &
+$.512$ 
+\\
+& \textsuperscript{3}QL\stackanchor{}{QueryConcat}
+&
+$.288$ &
+$.603$ &
+$.496$ &
+$.157$ &
+$.511$ &
+$.458$ 
+\\
+\multirow{6}{*}{ClustMRF} &\textsuperscript{4}CMRF\stackanchor{}{title}
+&
+$.231$ &
+$.511$ &
+$.423$ &
+$.143$ &
+$.436$ &
+$.406$ 
+\\
+& QueryConcat
+&
+$.267\stackanchor{}{\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.543\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.458\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.189\stackanchor{}{\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.613\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.531\stackanchor{}{\statSymbolQLconc\statSymbolCMRFtitle}$ 
+\\
+& FuseClust
+&
+$.233\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.554\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.436\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.197\stackanchor{}{\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.626\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.538\stackanchor{}{\statSymbolQLconc\statSymbolCMRFtitle}$ 
+\\
+& ClustFuse
+&
+$.280\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$\underline{.608}\stackanchor{}{\statSymbolCMRFtitle}$ &
+$.499\stackanchor{}{\statSymbolRRF\statSymbolCMRFtitle}$ &
+$\underline{.210}\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$\underline{.640}\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$\underline{.566}\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ 
+\\
+& PoolClust
+&
+$.203\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.457\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.383\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.165\stackanchor{}{\statSymbolRRF\statSymbolCMRFtitle}$ &
+$.537\stackanchor{}{\statSymbolCMRFtitle}$ &
+$.489\stackanchor{}{\statSymbolCMRFtitle}$ 
+\\
+& SimClust
+&
+$.242\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.554\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.462\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolCMRFtitle}$ &
+$.156\stackanchor{}{\statSymbolRRF\statSymbolCMRFtitle}$ &
+$.514\stackanchor{}{\statSymbolCMRFtitle}$ &
+$.467\stackanchor{}{\statSymbolRRF\statSymbolCMRFtitle}$ 
+\\
+\multirow{6}{*}{GeoClust} &\textsuperscript{5}GeoClust\stackanchor{}{title}
+&
+$.230$ &
+$.491$ &
+$.417$ &
+$.142$ &
+$.422$ &
+$.398$ 
+\\
+& QueryConcat
+&
+$.286\stackanchor{}{\statSymbolRRF\statSymbolGeoClustTitle}$ &
+$.580\stackanchor{}{\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.494\stackanchor{}{\statSymbolGeoClustTitle}$ &
+$.189\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.577\stackanchor{}{\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.511\stackanchor{}{\statSymbolQLconc\statSymbolGeoClustTitle}$ 
+\\
+& FuseClust
+&
+$.281\stackanchor{}{\statSymbolRRF\statSymbolGeoClustTitle}$ &
+$.606\stackanchor{}{\statSymbolGeoClustTitle}$ &
+$.498\stackanchor{}{\statSymbolRRF\statSymbolGeoClustTitle}$ &
+$.199\stackanchor{}{\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.562\stackanchor{}{\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.522\stackanchor{}{\statSymbolQLconc\statSymbolGeoClustTitle}$ 
+\\
+& ClustFuse
+&
+$.281\stackanchor{}{\statSymbolRRF\statSymbolGeoClustTitle}$ &
+$.606\stackanchor{}{\statSymbolGeoClustTitle}$ &
+$.498\stackanchor{}{\statSymbolRRF\statSymbolGeoClustTitle}$ &
+$.199\stackanchor{}{\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.562\stackanchor{}{\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.522\stackanchor{}{\statSymbolQLconc\statSymbolGeoClustTitle}$ 
+\\
+& PoolClust
+&
+$.223\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.451\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.391\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.128\stackanchor{}{\statSymbolRRF\statSymbolQLconc}$ &
+$.281\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.301\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolGeoClustTitle}$ 
+\\
+& SimClust
+&
+$.249\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.580\stackanchor{}{\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.471\stackanchor{}{\statSymbolQLconc\statSymbolGeoClustTitle}$ &
+$.147\stackanchor{}{\statSymbolRRF}$ &
+$.479\stackanchor{}{\statSymbolRRF\statSymbolGeoClustTitle}$ &
+$.430\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolGeoClustTitle}$ 
+\\
+\multirow{6}{*}{Interpf} &\textsuperscript{6}Interp-f\stackanchor{}{title}
+&
+$.224$ &
+$.492$ &
+$.418$ &
+$.148$ &
+$.444$ &
+$.415$ 
+\\
+& QueryConcat
+&
+$\underline{.290}\stackanchor{}{\statSymbolRRF\statSymbolInterpTitle}$ &
+$\underline{.608}\stackanchor{}{\statSymbolRRF\statSymbolInterpTitle}$ &
+$\underline{.502}\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolInterpTitle}$ &
+$.193\stackanchor{}{\statSymbolQLconc\statSymbolInterpTitle}$ &
+$.577\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolInterpTitle}$ &
+$.522\stackanchor{}{\statSymbolQLconc\statSymbolInterpTitle}$ 
+\\
+& FuseClust
+&
+$.269\stackanchor{}{\statSymbolQLconc\statSymbolInterpTitle}$ &
+$.587\stackanchor{}{\statSymbolQLconc\statSymbolInterpTitle}$ &
+$.484\stackanchor{}{\statSymbolQLconc\statSymbolInterpTitle}$ &
+$.195\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolInterpTitle}$ &
+$.561\stackanchor{}{\statSymbolQLconc\statSymbolInterpTitle}$ &
+$.511\stackanchor{}{\statSymbolQLconc\statSymbolInterpTitle}$ 
+\\
+& ClustFuse
+&
+$.273\stackanchor{}{\statSymbolRRF\statSymbolQLconc\statSymbolInterpTitle}$ &
+$.598\stackanchor{}{\statSymbolInterpTitle}$ &
+$.489\stackanchor{}{\statSymbolRRF\statSymbolInterpTitle}$ &
+$.197\stackanchor{}{\statSymbolQLconc\statSymbolInterpTitle}$ &
+$.560\stackanchor{}{\statSymbolQLconc\statSymbolInterpTitle}$ &
+$.512\stackanchor{}{\statSymbolQLconc\statSymbolInterpTitle}$ 
+\\
+& SimClust
+&
+$.249\stackanchor{}{\statSymbolRRF\statSymbolInterpTitle}$ &
+$.575\stackanchor{}{\statSymbolRRF\statSymbolInterpTitle}$ &
+$.474\stackanchor{}{\statSymbolInterpTitle}$ &
+$.159\stackanchor{}{\statSymbolRRF\statSymbolInterpTitle}$ &
+$.509\stackanchor{}{\statSymbolRRF\statSymbolInterpTitle}$ &
+$.468\stackanchor{}{\statSymbolRRF\statSymbolInterpTitle}$ 
+\\
+& PoolClust
+&
+$.233\stackanchor{}{\statSymbolRRF}$ &
+$.525\stackanchor{}{\statSymbolRRF}$ &
+$.443\stackanchor{}{\statSymbolRRF}$ &
+$.155\stackanchor{}{\statSymbolRRF}$ &
+$.464\stackanchor{}{\statSymbolRRF}$ &
+$.435\stackanchor{}{\statSymbolRRF}$ &
+\\
+
+
+\hline
+
+\end{tabular}

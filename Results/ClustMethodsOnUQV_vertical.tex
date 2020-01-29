@@ -1,0 +1,21 @@
+\begin{tabular}{@{}llllllllll@{}}
+& &
+\multicolumn{4}{c}{\robust} & \multicolumn{4}{c}{\cw}\\
+& & \titleQuery & \minAP & \medAP & \maxAP & \titleQuery & \minAP & \medAP & \maxAP \\
+\toprule
+\multirow{3}{*}{\init} & \map & $.188$ & $.065$ & $.175$ & $.306$ & $.111$ & $.008$ & $.094$ & $\mathbf{.180}$\\
+& \precFive & $.487$ & $.194$ & $.460$ & $.715$ & $.444$ & $.068$ & $.494$ & $\mathbf{.746}$\\
+& \ndcg & $.410$ & $.163$ & $.374$ & $.585$ & $.415$ & $.051$ & $.412$ & $\mathbf{.651}$\\
+\addlinespace
+\multirow{3}{*}{\clustMRF} & \map & $.194$ & $.072^{\statSymbolInit}$ & $.182^{\statSymbolInit}$ & $.296^{\statSymbolInit}$ & $\mathbf{.115}$ & $\mathbf{.011}$ & $.096$ & $.173^{\statSymbolInit}$\\
+& \precFive & $\mathbf{.496}$ & $\mathbf{.222}^{\statSymbolInit}$ & $.492^{\statSymbolInit}$ & $.688^{\statSymbolInit}$ & $\mathbf{.470}$ & $\mathbf{.074}$ & $.478$ & $.738$\\
+& \ndcg & $.420^{\statSymbolInit}$ & $.179^{\statSymbolInit}$ & $.394^{\statSymbolInit}$ & $.574^{\statSymbolInit}$ & $\mathbf{.432}$ & $\mathbf{.059}$ & $\mathbf{.428}$ & $.620^{\statSymbolInit}$\\
+\addlinespace
+\multirow{3}{*}{\geoClust} & \map & $\mathbf{.200}^{\statSymbolInit}$ & $\mathbf{.075}^{\statSymbolInit}$ & $\mathbf{.187}^{\statSymbolInit}$ & $.304$ & $.108^{\statSymbolInit}$ & $.008$ & $\mathbf{.097}$ & $.172^{\statSymbolInit}$\\
+& \precFive & $.493$ & $.210$ & $.488^{\statSymbolInit}$ & $.720$ & $.422$ & $.064$ & $\mathbf{.496}$ & $.698^{\statSymbolInit}$\\
+& \ndcg & $\mathbf{.424}^{\statSymbolInit}$ & $\mathbf{.179}^{\statSymbolInit}$ & $.399^{\statSymbolInit}$ & $.590$ & $.405$ & $.050$ & $.422$ & $.617^{\statSymbolInit}$\\
+\addlinespace
+\multirow{3}{*}{\interp} & \map & $.193^{\statSymbolInit}$ & $.068$ & $.185^{\statSymbolInit}$ & $\mathbf{.312}^{\statSymbolInit}$ & $.111$ & $.008$ & $.093$ & $.180$\\
+& \precFive & $.482$ & $.211^{\statSymbolInit}$ & $\mathbf{.494}^{\statSymbolInit}$ & $\mathbf{.731}^{\statSymbolInit}$ & $.444$ & $.064$ & $.474$ & $.740$\\
+& \ndcg & $.417$ & $.173^{\statSymbolInit}$ & $\mathbf{.399}^{\statSymbolInit}$ & $\mathbf{.601}^{\statSymbolInit}$ & $.415$ & $.050$ & $.404$ & $.649$ \\
+\end{tabular}
